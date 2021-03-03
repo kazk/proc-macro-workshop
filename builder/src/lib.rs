@@ -1,8 +1,9 @@
-use proc_macro::TokenStream;
+#[macro_use]
+extern crate darling;
 
-#[proc_macro_derive(Builder)]
-pub fn derive(input: TokenStream) -> TokenStream {
-    let _ = input;
+mod builder;
 
-    unimplemented!()
+#[proc_macro_derive(Builder, attributes(builder))]
+pub fn derive_builder(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
+    builder::derive(proc_macro2::TokenStream::from(input)).into()
 }
